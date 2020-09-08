@@ -1,0 +1,86 @@
+body {
+  font-family: Consolas;
+}
+body #sudoku-container {
+  height: 100vw;
+  width: 100vw;
+  max-width: 720px;
+  max-height: 720px;
+  display: flex;
+  flex-direction: column;
+}
+body #sudoku-container .sudoku-row {
+  display: flex;
+  align-items: stretch;
+  height: 11.1111111111%;
+}
+body #sudoku-container .sudoku-row.sudoku-row--top .sudoku-cell {
+  border-top: black 4px solid;
+}
+body #sudoku-container .sudoku-row.sudoku-row--bottom:last-child {
+  border-bottom: black 4px solid;
+}
+body #sudoku-container .sudoku-row .sudoku-cell {
+  border: black 1px solid;
+  padding: 2px;
+  width: 11.1111111111%;
+  cursor: pointer;
+  display: flex;
+  position: relative;
+}
+body #sudoku-container .sudoku-row .sudoku-cell.highlight {
+  background-color: bisque;
+}
+body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--start {
+  border-left: black 4px solid;
+}
+body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--end:last-child {
+  border-right: black 4px solid;
+}
+body span.centered {
+  font-size: 48px;
+  margin: auto;
+  justify-content: center;
+  -ms-flex-pack: center !important;
+  color: royalblue;
+}
+body span.centered.default {
+  color: black;
+}
+body span.pencil {
+  font-size: 16px;
+  position: absolute;
+  width: 33%;
+  text-align: center;
+  color: royalblue;
+}
+body span.pencil.pencil--top {
+  top: 10%;
+}
+body span.pencil.pencil--middle-v {
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+body span.pencil.pencil--bottom {
+  bottom: 10%;
+}
+body span.pencil.pencil--left {
+  left: 10%;
+}
+body span.pencil.pencil--middle-h {
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+body span.pencil.pencil--right {
+  right: 10%;
+}
+body span.pencil.pencil--middle-h.pencil--middle-v {
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/*# sourceMappingURL=styles.css.map */
