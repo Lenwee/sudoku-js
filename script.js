@@ -1,16 +1,18 @@
 $(function() {
   var sudoku_cells = $(".sudoku-cell"),
+    button_numbers = $(".button-number"),
+    button_delete = $("#button-delete"),
     is_highlighting = false,
     start_grid = [
-      [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      [0, 2, 3, 4, 5, 6, 7, 8, 9],
-      [0, 0, 3, 4, 5, 6, 7, 8, 9],
-      [0, 0, 0, 4, 5, 6, 7, 8, 9],
-      [0, 0, 0, 0, 5, 6, 7, 8, 9],
-      [0, 0, 0, 0, 0, 6, 7, 8, 9],
-      [0, 0, 0, 0, 0, 0, 7, 8, 9],
-      [0, 0, 0, 0, 0, 0, 0, 8, 9],
-      [0, 0, 0, 0, 0, 0, 0, 0, 9]
+      [3, 0, 6, 5, 0, 8, 4, 0, 0],
+      [5, 2, 0, 0, 0, 0, 0, 0, 0],
+      [0, 8, 7, 0, 0, 0, 0, 3, 1],
+      [0, 0, 3, 0, 1, 0, 0, 8, 0],
+      [9, 0, 0, 8, 6, 3, 0, 0, 5],
+      [0, 5, 0, 0, 9, 0, 6, 0, 0],
+      [1, 3, 0, 0, 0, 0, 2, 5, 0],
+      [0, 0, 0, 0, 0, 0, 0, 7, 4],
+      [0, 0, 5, 2, 0, 6, 3, 0, 0]
     ];
 
   /*
@@ -29,7 +31,12 @@ $(function() {
           cell.empty();
         }
         if (cell.find("span").length === 0) {
-          cell.append("<span class='pencil pencil--centered' data-sudoku-value='" + number + "'>" + number + "</span>"
+          cell.append(
+            "<span class='pencil pencil--centered' data-sudoku-value='" +
+              number +
+              "'>" +
+              number +
+              "</span>"
           );
         } else {
           var spanAdded = false;
@@ -37,13 +44,23 @@ $(function() {
             if ($(this).data("sudoku-value") > number) {
               if (!spanAdded) {
                 spanAdded = true;
-                $("<span class='pencil pencil--centered' data-sudoku-value='" + number + "'>" + number + "</span>").insertBefore($(this));
+                $(
+                  "<span class='pencil pencil--centered' data-sudoku-value='" +
+                    number +
+                    "'>" +
+                    number +
+                    "</span>"
+                ).insertBefore($(this));
               }
             }
           });
           if (!spanAdded) {
             cell.append(
-              "<span class='pencil pencil--centered' data-sudoku-value='" + number + "'>" + number + "</span>"
+              "<span class='pencil pencil--centered' data-sudoku-value='" +
+                number +
+                "'>" +
+                number +
+                "</span>"
             );
           }
         }
@@ -190,10 +207,53 @@ $(function() {
       }
     } else if (keyPressed === "Delete" || keyPressed === "Backspace") {
       $.each(selectedCells, function() {
-        $(this).empty();
+        if ($(this).find(".default").length !== 1) {
+          $(this).empty();
+        }
       });
     } else if (keyPressed.startsWith("Arrow")) {
       moveSelected(selectedCells[0], keyPressed);
     }
   });
+
+  /*
+  Number button pressed
+   */
+  $.each(button_numbers, function() {
+    var button = $(this);
+
+    button.on("click", function(event) {
+      var number = button.data("number"),
+        action = $('[name="action"]:checked').val(),
+        selectedCells = getSelectedSudokuCells();
+
+      if (action === "confirm") {
+        $.each(selectedCells, function() {
+          addNumber($(this), number);
+        });
+      } else if (action === "pencil") {
+        var existingNotes = selectedCells.find(
+          "[data-sudoku-value=" + number + "]"
+        ).length;
+        $.each(selectedCells, function() {
+          if (existingNotes < selectedCells.length) {
+            addPencilCentered($(this), number);
+          } else {
+            removePencilCentered($(this), number);
+          }
+        });
+      }
+    });
+  });
+
+  /*
+  Clear button pressed
+   */
+  button_delete.on('click', function () {
+    $.each(getSelectedSudokuCells(), function() {
+      if ($(this).find(".default").length !== 1) {
+        $(this).empty();
+      }
+    });
+  })
 });
