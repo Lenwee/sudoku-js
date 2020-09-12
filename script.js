@@ -140,7 +140,7 @@ $(function() {
   $.each(sudoku_cells, function() {
     var sudoku_cell = $(this);
 
-    sudoku_cell.on("mousedown", function(event) {
+    sudoku_cell.on("mousedown touchstart", function(event) {
       event.preventDefault();
       if (!event.ctrlKey) {
         $.each(sudoku_cells, function() {
@@ -152,14 +152,14 @@ $(function() {
       is_highlighting = true;
     });
 
-    sudoku_cell.on("mouseover", function(event) {
+    sudoku_cell.on("mouseover touchmove", function(event) {
       if (is_highlighting) {
         sudoku_cell.addClass("highlight");
       }
     });
   });
 
-  $(document).on("mouseup", function(event) {
+  $(document).on("mouseup touchend", function(event) {
     if (is_highlighting) {
       is_highlighting = false;
     }
