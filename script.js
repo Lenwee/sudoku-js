@@ -1,4 +1,7 @@
 $(function() {
+  // TODO: Tidy up js
+  // TODO: Add touch support
+
   var sudoku_cells = $(".sudoku-cell"),
     button_numbers = $(".button-number"),
     button_delete = $("#button-delete"),
@@ -140,26 +143,25 @@ $(function() {
   $.each(sudoku_cells, function() {
     var sudoku_cell = $(this);
 
-    sudoku_cell.on("mousedown touchstart", function(event) {
+    sudoku_cell.on("mousedown", function(event) {
       event.preventDefault();
       if (!event.ctrlKey) {
         $.each(sudoku_cells, function() {
           $(this).removeClass("highlight");
         });
       }
-
       sudoku_cell.addClass("highlight");
       is_highlighting = true;
     });
 
-    sudoku_cell.on("mouseover touchmove", function(event) {
+    sudoku_cell.on("mouseover", function(event) {
       if (is_highlighting) {
         sudoku_cell.addClass("highlight");
       }
     });
   });
 
-  $(document).on("mouseup touchend", function(event) {
+  $(document).on("mouseup", function(event) {
     if (is_highlighting) {
       is_highlighting = false;
     }
@@ -249,11 +251,11 @@ $(function() {
   /*
   Clear button pressed
    */
-  button_delete.on('click', function () {
+  button_delete.on("click", function() {
     $.each(getSelectedSudokuCells(), function() {
       if ($(this).find(".default").length !== 1) {
         $(this).empty();
       }
     });
-  })
+  });
 });
