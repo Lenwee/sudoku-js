@@ -19,6 +19,20 @@ $(function() {
     ];
 
   /*
+  Populate grid
+ */
+  $.each(start_grid, function(row_index, row) {
+    $.each(row, function(column_index, cell_value) {
+      var cell_index = row_index * 9 + column_index;
+      if (cell_value > 0) {
+        $(sudoku_cells[cell_index]).append(
+          "<span class='centered default'>" + cell_value + "</span>"
+        );
+      }
+    });
+  });
+
+  /*
     Helper functions
   */
   function getSelectedSudokuCells() {
@@ -121,50 +135,46 @@ $(function() {
     $(sudoku_cells[newCellIndex]).addClass("highlight");
   }
 
-  /*
-    Populate grid
-   */
-  $.each(start_grid, function(row_index, row) {
-    $.each(row, function(column_index, cell_value) {
-      var cell_index = row_index * 9 + column_index;
-      if (cell_value > 0) {
-        $(sudoku_cells[cell_index]).append(
-          "<span class='centered default'>" + cell_value + "</span>"
-        );
-      }
-    });
-  });
+  function onMouseDown(sudoku_cell, event) {
+    event.preventDefault();
+    if (!event.ctrlKey) {
+      $.each(sudoku_cells, function() {
+        $(this).removeClass("highlight");
+      });
+    }
+    sudoku_cell.addClass("highlight");
+    is_highlighting = true;
+  }
+
+  function onMouseOver(sudoku_cell, event) {
+    if (is_highlighting) {
+      sudoku_cell.addClass("highlight");
+    }
+  }
+
+  function onMouseUp(event) {
+    if (is_highlighting) {
+      is_highlighting = false;
+    }
+  }
 
   /*
-  Sudoku Grid Highlighting functionality
-  Hold down left mouse to highlight multiple
-  Hold down ctrl to select multiple as well
+    Events
   */
   $.each(sudoku_cells, function() {
     var sudoku_cell = $(this);
 
     sudoku_cell.on("mousedown", function(event) {
-      event.preventDefault();
-      if (!event.ctrlKey) {
-        $.each(sudoku_cells, function() {
-          $(this).removeClass("highlight");
-        });
-      }
-      sudoku_cell.addClass("highlight");
-      is_highlighting = true;
+      onMouseDown(sudoku_cell, event);
     });
 
     sudoku_cell.on("mouseover", function(event) {
-      if (is_highlighting) {
-        sudoku_cell.addClass("highlight");
-      }
+      onMouseOver(sudoku_cell, event);
     });
   });
 
   $(document).on("mouseup", function(event) {
-    if (is_highlighting) {
-      is_highlighting = false;
-    }
+    onMouseUp(event);
   });
 
   /*
