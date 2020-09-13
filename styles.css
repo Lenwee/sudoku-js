@@ -8,8 +8,8 @@ body .container {
 body #sudoku-container {
   height: 100vw;
   width: 100vw;
-  max-width: 720px;
-  max-height: 720px;
+  max-width: 900px;
+  max-height: 900px;
   display: flex;
   flex-direction: column;
 }
@@ -123,8 +123,18 @@ body #sudoku-controls input[type=radio]:checked + label > i, body #sudoku-contro
   color: #383f51;
   background-color: #dadff7;
 }
+body #sudoku-controls label.btn,
+body #sudoku-controls button.btn {
+  padding: 0;
+}
+body #sudoku-controls label.btn:focus,
+body #sudoku-controls button.btn:focus {
+  box-shadow: none !important;
+}
 body #sudoku-controls label i,
-body #sudoku-controls label span {
+body #sudoku-controls label span,
+body #sudoku-controls button i,
+body #sudoku-controls button span {
   display: -webkit-flexbox;
   display: -ms-flexbox;
   display: -webkit-flex;
@@ -142,48 +152,48 @@ body #sudoku-controls label span {
   background-color: #383f51;
   border-radius: 25%;
 }
+@media only screen and (min-width: 992px) {
+  body #sudoku-controls label i i,
+body #sudoku-controls label i span,
+body #sudoku-controls label span i,
+body #sudoku-controls label span span,
+body #sudoku-controls button i i,
+body #sudoku-controls button i span,
+body #sudoku-controls button span i,
+body #sudoku-controls button span span {
+    width: 33%;
+    height: 100vw;
+  }
+}
 body #sudoku-controls label i:hover,
-body #sudoku-controls label span:hover {
+body #sudoku-controls label span:hover,
+body #sudoku-controls button i:hover,
+body #sudoku-controls button span:hover {
   opacity: 0.6;
   cursor: pointer;
 }
 body #sudoku-controls label i:active,
-body #sudoku-controls label span:active {
+body #sudoku-controls label span:active,
+body #sudoku-controls button i:active,
+body #sudoku-controls button span:active {
   opacity: 0.4;
   cursor: pointer;
 }
 body #sudoku-controls label i:focus,
-body #sudoku-controls label span:focus {
+body #sudoku-controls label span:focus,
+body #sudoku-controls button i:focus,
+body #sudoku-controls button span:focus {
   outline: none;
 }
-body #sudoku-controls button {
-  display: -webkit-flexbox;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  font-size: 48px;
-  color: #dadff7;
-  border: solid 5px #383f51;
-  background-color: #383f51;
-  border-radius: 25%;
-}
-body #sudoku-controls button:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-body #sudoku-controls button:active {
-  opacity: 0.4;
-  cursor: pointer;
-}
-body #sudoku-controls button:focus {
-  outline: none;
+
+@media only screen and (max-width: 992px) {
+  #sudoku-controls label i,
+#sudoku-controls label span,
+#sudoku-controls button i,
+#sudoku-controls button span {
+    width: 190px !important;
+    height: 190px !important;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */
