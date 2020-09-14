@@ -1,45 +1,51 @@
+@media only screen and (max-width: 992px) {
+  .sudoku-row {
+    height: 11.1111111111% !important;
+  }
+  .sudoku-row .sudoku-cell {
+    width: 11.1111111111% !important;
+  }
+}
 body {
   background-color: #dadff7;
   font-family: Source Sans Pro, sans-serif;
 }
-body .container {
-  padding: 0;
-}
 body #sudoku-container {
   height: 100vw;
-  width: 100vw;
-  max-width: 900px;
-  max-height: 900px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 720px;
   display: flex;
   flex-direction: column;
 }
 body #sudoku-container .sudoku-row {
   display: flex;
   align-items: stretch;
-  height: 11.1111111111%;
+  height: 80px;
 }
 body #sudoku-container .sudoku-row.sudoku-row--top .sudoku-cell {
-  border-top: #383f51 4px solid;
+  border-top-width: 4px;
 }
-body #sudoku-container .sudoku-row.sudoku-row--bottom:last-child {
-  border-bottom: #383f51 4px solid;
+body #sudoku-container .sudoku-row.sudoku-row--bottom:last-child .sudoku-cell {
+  border-bottom-width: 4px;
 }
 body #sudoku-container .sudoku-row .sudoku-cell {
   border: #383f51 1px solid;
   padding: 2px;
-  width: 11.1111111111%;
+  width: 80px;
   cursor: pointer;
   display: flex;
-  position: relative;
+  align-items: center;
+  justify-content: center;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.highlight {
   background-color: #d1beb0;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--start {
-  border-left: #383f51 4px solid;
+  border-left-width: 4px;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--end:last-child {
-  border-right: #383f51 4px solid;
+  border-right-width: 4px;
 }
 body #sudoku-container span.centered {
   font-size: 48px;
@@ -184,16 +190,6 @@ body #sudoku-controls label span:focus,
 body #sudoku-controls button i:focus,
 body #sudoku-controls button span:focus {
   outline: none;
-}
-
-@media only screen and (max-width: 992px) {
-  #sudoku-controls label i,
-#sudoku-controls label span,
-#sudoku-controls button i,
-#sudoku-controls button span {
-    width: 190px !important;
-    height: 190px !important;
-  }
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Sudoku Test</title>
     <link
       rel="stylesheet"
@@ -32,108 +33,108 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <div id="sudoku-container" class="row mx-auto pt-5">
-      <div class="sudoku-row sudoku-row--top">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--middle">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--bottom">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--top">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--middle">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--bottom">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--top">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--middle">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-      <div class="sudoku-row sudoku-row--bottom">
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-        <div class="sudoku-cell sudoku-cell--start"></div>
-        <div class="sudoku-cell sudoku-cell--middle"></div>
-        <div class="sudoku-cell sudoku-cell--end"></div>
-      </div>
-    </div>
     <div class="container">
+      <div id="sudoku-container" class="row mx-auto">
+        <div class="sudoku-row sudoku-row--top">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--middle">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--bottom">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--top">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--middle">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--bottom">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--top">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--middle">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+        <div class="sudoku-row sudoku-row--bottom">
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+          <div class="sudoku-cell sudoku-cell--start"></div>
+          <div class="sudoku-cell sudoku-cell--middle"></div>
+          <div class="sudoku-cell sudoku-cell--end"></div>
+        </div>
+      </div>
       <div id="sudoku-controls" class="row py-5">
         <div class="mx-auto">
           <input

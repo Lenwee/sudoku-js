@@ -4,54 +4,68 @@ $y_blue: #3c4f76;
 $pale_silver: #d1beb0;
 $quick_silver: #ab9f9d;
 
+@media only screen and (max-width: 992px) {
+  .sudoku-row {
+    height: (100%/9) !important;
+
+    .sudoku-cell {
+      width: (100%/9) !important;
+    }
+  }
+}
+
 body {
   background-color: $lavender_web;
   font-family: Source Sans Pro, sans-serif;
-  .container {
-    padding: 0;
-  }
 
   #sudoku-container {
     height: 100vw;
-    width: 100vw;
-    max-width: 900px;
-    max-height: 900px;
+    width: 100%;
+    max-width: 720px;
+    max-height: 720px;
     display: flex;
     flex-direction: column;
 
     .sudoku-row {
       display: flex;
       align-items: stretch;
-      height: (100%/9);
+      height: 80px;
+
       &.sudoku-row--top {
         .sudoku-cell {
-          border-top: $charcoal 4px solid;
+          border-top-width: 4px;
         }
       }
+
       &.sudoku-row--bottom:last-child {
-        border-bottom: $charcoal 4px solid;
+        .sudoku-cell {
+          border-bottom-width: 4px;
+        }
       }
+
       .sudoku-cell {
         border: $charcoal 1px solid;
         padding: 2px;
-        width: (100%/9);
+        width: 80px;
         cursor: pointer;
         display: flex;
-        position: relative;
+        align-items: center;
+        justify-content: center;
 
         &.highlight {
           background-color: $pale_silver;
         }
 
         &.sudoku-cell--start {
-          border-left: $charcoal 4px solid;
+          border-left-width: 4px;
         }
 
         &.sudoku-cell--end:last-child {
-          border-right: $charcoal 4px solid;
+          border-right-width: 4px;
         }
       }
     }
+
     span {
       &.centered {
         font-size: 48px;
@@ -130,9 +144,11 @@ body {
           justify-content: center;
           align-items: center;
           padding: 0 1px;
+
           &:first-child {
             margin-left: auto;
           }
+
           &:last-child {
             margin-right: auto;
           }
@@ -202,19 +218,6 @@ body {
         &:focus {
           outline: none;
         }
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 992px) {
-  #sudoku-controls {
-    label,
-    button {
-      i,
-      span {
-        width: 190px !important;
-        height: 190px !important;
       }
     }
   }
