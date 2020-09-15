@@ -3,12 +3,6 @@
     padding: 0;
   }
 
-  #sudoku-container .sudoku-row {
-    height: 11.1111111111% !important;
-  }
-  #sudoku-container .sudoku-row .sudoku-cell {
-    width: 11.1111111111% !important;
-  }
   #sudoku-container span.centered {
     font-size: 28px !important;
   }
@@ -44,7 +38,7 @@ body #sudoku-container {
 body #sudoku-container .sudoku-row {
   display: flex;
   align-items: stretch;
-  height: 80px;
+  height: 11.1111111111% !important;
 }
 body #sudoku-container .sudoku-row.sudoku-row--top .sudoku-cell {
   border-top-width: 4px;
@@ -55,7 +49,7 @@ body #sudoku-container .sudoku-row.sudoku-row--bottom:last-child .sudoku-cell {
 body #sudoku-container .sudoku-row .sudoku-cell {
   border: #383f51 1px solid;
   padding: 2px;
-  width: 80px;
+  width: 11.1111111111% !important;
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -9,13 +9,6 @@ $quick_silver: #ab9f9d;
     padding: 0;
   }
   #sudoku-container {
-    .sudoku-row {
-      height: (100%/9) !important;
-
-      .sudoku-cell {
-        width: (100%/9) !important;
-      }
-    }
     span {
       &.centered {
         font-size: 28px !important;
@@ -56,7 +49,7 @@ body {
     .sudoku-row {
       display: flex;
       align-items: stretch;
-      height: 80px;
+      height: (100%/9) !important;
 
       &.sudoku-row--top {
         .sudoku-cell {
@@ -73,7 +66,7 @@ body {
       .sudoku-cell {
         border: $charcoal 1px solid;
         padding: 2px;
-        width: 80px;
+        width: (100%/9) !important;
         cursor: pointer;
         display: flex;
         align-items: center;
