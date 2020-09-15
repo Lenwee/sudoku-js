@@ -33,7 +33,7 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <div class="container py-5">
+    <div class="container pt-5">
       <div id="sudoku-container" class="row mx-auto">
         <div class="sudoku-row sudoku-row--top">
           <div class="sudoku-cell sudoku-cell--start"></div>
@@ -135,74 +135,84 @@
           <div class="sudoku-cell sudoku-cell--end"></div>
         </div>
       </div>
-      <div id="sudoku-controls" class="row py-5">
-        <div class="mx-auto">
-          <input
-            type="radio"
-            name="action"
-            id="confirm"
-            value="confirm"
-            checked
-          />
-          <label for="confirm">
-            <span>1</span>
-          </label>
-        </div>
-        <div class="mx-auto">
-          <input type="radio" name="action" id="pencil" value="pencil" />
-          <label for="pencil">
-            <i class="fas fa-pencil-alt align-middle"></i>
-          </label>
-        </div>
-        <div class="mx-auto">
-          <button class="btn" id="button-delete">
-            <i class="far fa-trash-alt"></i>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="1">
-            <span>1</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="2">
-            <span>2</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="3">
-            <span>3</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="4">
-            <span>4</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="5">
-            <span>5</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="6">
-            <span>6</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="7">
-            <span>7</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="8">
-            <span>8</span>
-          </button>
-        </div>
-        <div class="mx-auto">
-          <button class="btn button-number" data-number="9">
-            <span>9</span>
-          </button>
+      <div id="sudoku-controls" class="row py-3 justify-content-center">
+        <div class="col-8 col-lg-4">
+          <div class="row">
+            <div class="mx-auto">
+              <input
+                type="radio"
+                name="action"
+                id="confirm"
+                value="confirm"
+                checked
+              />
+              <label for="confirm">
+                <span>1</span>
+              </label>
+            </div>
+            <div class="mx-auto">
+              <input type="radio" name="action" id="pencil" value="pencil" />
+              <label for="pencil">
+                <i class="fas fa-pencil-alt align-middle"></i>
+              </label>
+            </div>
+            <div class="mx-auto">
+              <button class="btn" id="button-delete">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="1">
+                <span>1</span>
+              </button>
+            </div>
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="2">
+                <span>2</span>
+              </button>
+            </div>
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="3">
+                <span>3</span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="4">
+                <span>4</span>
+              </button>
+            </div>
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="5">
+                <span>5</span>
+              </button>
+            </div>
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="6">
+                <span>6</span>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="7">
+                <span>7</span>
+              </button>
+            </div>
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="8">
+                <span>8</span>
+              </button>
+            </div>
+            <div class="mx-auto">
+              <button class="btn button-number" data-number="9">
+                <span>9</span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

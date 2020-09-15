@@ -17,9 +17,9 @@
 #sudoku-controls label span,
 #sudoku-controls button i,
 #sudoku-controls button span {
-    width: 64px !important;
-    height: 64px !important;
-    font-size: 48px !important;
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 32px !important;
     border-width: 2px !important;
   }
 }
@@ -145,6 +145,10 @@ body #sudoku-controls input[type=radio] {
 body #sudoku-controls input[type=radio]:checked + label > i, body #sudoku-controls input[type=radio]:checked + label > span {
   color: #383f51;
   background-color: #dadff7;
+}
+body #sudoku-controls label,
+body #sudoku-controls button {
+  margin-bottom: 0;
 }
 body #sudoku-controls label.btn,
 body #sudoku-controls button.btn {

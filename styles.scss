@@ -25,9 +25,9 @@ $quick_silver: #ab9f9d;
     button {
       i,
       span {
-        width: 64px !important;
-        height: 64px !important;
-        font-size: 48px !important;
+        width: 48px !important;
+        height: 48px !important;
+        font-size: 32px !important;
         border-width: 2px !important;
       }
     }
@@ -190,6 +190,7 @@ body {
 
     label,
     button {
+      margin-bottom: 0;
       &.btn {
         padding: 0;
 
