@@ -1,9 +1,32 @@
 @media only screen and (max-width: 992px) {
-  .sudoku-row {
+  .container {
+    padding: 0;
+  }
+
+  #sudoku-container .sudoku-row {
     height: 11.1111111111% !important;
   }
-  .sudoku-row .sudoku-cell {
+  #sudoku-container .sudoku-row .sudoku-cell {
     width: 11.1111111111% !important;
+  }
+  #sudoku-container span.centered {
+    font-size: 28px !important;
+  }
+  #sudoku-container span.pencil {
+    font-size: 10px !important;
+  }
+
+  #sudoku-controls {
+    padding: 0 16px;
+  }
+  #sudoku-controls label i,
+#sudoku-controls label span,
+#sudoku-controls button i,
+#sudoku-controls button span {
+    width: 64px !important;
+    height: 64px !important;
+    font-size: 48px !important;
+    border-width: 2px !important;
   }
 }
 body {
@@ -12,7 +35,7 @@ body {
 }
 body #sudoku-container {
   height: 100vw;
-  width: 100%;
+  width: 100vw;
   max-width: 720px;
   max-height: 720px;
   display: flex;

@@ -5,11 +5,38 @@ $pale_silver: #d1beb0;
 $quick_silver: #ab9f9d;
 
 @media only screen and (max-width: 992px) {
-  .sudoku-row {
-    height: (100%/9) !important;
+  .container {
+    padding: 0;
+  }
+  #sudoku-container {
+    .sudoku-row {
+      height: (100%/9) !important;
 
-    .sudoku-cell {
-      width: (100%/9) !important;
+      .sudoku-cell {
+        width: (100%/9) !important;
+      }
+    }
+    span {
+      &.centered {
+        font-size: 28px !important;
+      }
+
+      &.pencil {
+        font-size: 10px !important;
+      }
+    }
+  }
+  #sudoku-controls {
+    padding: 0 16px;
+    label,
+    button {
+      i,
+      span {
+        width: 64px !important;
+        height: 64px !important;
+        font-size: 48px !important;
+        border-width: 2px !important;
+      }
     }
   }
 }
@@ -20,7 +47,7 @@ body {
 
   #sudoku-container {
     height: 100vw;
-    width: 100%;
+    width: 100vw;
     max-width: 720px;
     max-height: 720px;
     display: flex;
