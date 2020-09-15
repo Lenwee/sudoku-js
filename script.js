@@ -147,6 +147,7 @@ $(function() {
   }
 
   function onMouseOver(sudoku_cell, event) {
+    event.preventDefault();
     if (is_highlighting) {
       sudoku_cell.addClass("highlight");
     }
@@ -164,16 +165,25 @@ $(function() {
   $.each(sudoku_cells, function() {
     var sudoku_cell = $(this);
 
-    sudoku_cell.on("mousedown", function(event) {
+    sudoku_cell.on("mousedown touchstart", function(event) {
       onMouseDown(sudoku_cell, event);
     });
 
     sudoku_cell.on("mouseover", function(event) {
       onMouseOver(sudoku_cell, event);
     });
+
+    sudoku_cell.on("touchmove", function(event) {
+      var location = event.originalEvent.changedTouches[0],
+        new_sudoku_cell = document.elementFromPoint(
+          location.clientX,
+          location.clientY
+        );
+      onMouseOver($(new_sudoku_cell), event);
+    });
   });
 
-  $(document).on("mouseup", function(event) {
+  $(document).on("mouseup touchend", function(event) {
     onMouseUp(event);
   });
 
