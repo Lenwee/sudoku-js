@@ -18,6 +18,7 @@
 
   #sudoku-controls {
     padding: 0 16px;
+    margin: 0 auto;
   }
   #sudoku-controls label i,
 #sudoku-controls label span,
