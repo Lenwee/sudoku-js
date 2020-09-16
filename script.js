@@ -1,9 +1,9 @@
 $(function() {
-  var sudoku_cells = $(".sudoku-cell"),
-    button_numbers = $(".button-number"),
-    button_delete = $("#button-delete"),
-    is_highlighting = false,
-    start_grid = [
+  var sudokuCells = $(".sudoku-cell"),
+    btnNumbers = $(".btn-number"),
+    btnDelete = $("#btn-delete"),
+    isHighlighting = false,
+    startingGrid = [
       [3, 0, 6, 5, 0, 8, 4, 0, 0],
       [5, 2, 0, 0, 0, 0, 0, 0, 0],
       [0, 8, 7, 0, 0, 0, 0, 3, 1],
@@ -15,25 +15,21 @@ $(function() {
       [0, 0, 5, 2, 0, 6, 3, 0, 0]
     ];
 
-  /*
-  Populate grid
- */
-  $.each(start_grid, function(row_index, row) {
-    $.each(row, function(column_index, cell_value) {
-      var cell_index = row_index * 9 + column_index;
-      if (cell_value > 0) {
-        $(sudoku_cells[cell_index]).append(
-          "<span class='centered default'>" + cell_value + "</span>"
+  // Populate Starting Grid
+  $.each(startingGrid, function(rowIndex, row) {
+    $.each(row, function(columnIndex, cellValue) {
+      var cellIndex = rowIndex * 9 + columnIndex;
+      if (cellValue > 0) {
+        $(sudokuCells[cellIndex]).append(
+          "<span class='centered default'>" + cellValue + "</span>"
         );
       }
     });
   });
 
-  /*
-    Helper functions
-  */
+  // Helper Functions
   function getSelectedSudokuCells() {
-    return sudoku_cells.filter(function() {
+    return sudokuCells.filter(function() {
       return $(this).hasClass("highlight");
     });
   }
@@ -98,7 +94,7 @@ $(function() {
       row = Math.floor(cellIndex / 9),
       col = cellIndex % 9;
 
-    $.each(sudoku_cells, function() {
+    $.each(sudokuCells, function() {
       $(this).removeClass("highlight");
     });
 
@@ -129,39 +125,39 @@ $(function() {
         break;
     }
     var newCellIndex = row * 9 + col;
-    $(sudoku_cells[newCellIndex]).addClass("highlight");
+    $(sudokuCells[newCellIndex]).addClass("highlight");
   }
 
-  function onMouseDown(sudoku_cell, event) {
+  function onMouseDown(sudokuCell, event) {
     event.preventDefault();
-    $.each(sudoku_cells, function() {
+    $.each(sudokuCells, function() {
       $(this).removeClass("highlight-same");
     });
     if (!event.ctrlKey) {
-      $.each(sudoku_cells, function() {
+      $.each(sudokuCells, function() {
         $(this).removeClass("highlight");
       });
     }
-    sudoku_cell.addClass("highlight");
-    is_highlighting = true;
+    sudokuCell.addClass("highlight");
+    isHighlighting = true;
   }
 
-  function onMouseOver(sudoku_cell, event) {
+  function onMouseOver(sudokuCell, event) {
     event.preventDefault();
-    if (is_highlighting) {
-      sudoku_cell.addClass("highlight");
+    if (isHighlighting) {
+      sudokuCell.addClass("highlight");
     }
   }
 
   function onMouseUp(event) {
-    if (is_highlighting) {
-      is_highlighting = false;
+    if (isHighlighting) {
+      isHighlighting = false;
     }
-    var selected_cells = getSelectedSudokuCells();
-    if (selected_cells.length === 1) {
-      var number = selected_cells.find("span.centered").text();
+    var selectedCells = getSelectedSudokuCells();
+    if (selectedCells.length === 1) {
+      var number = selectedCells.find("span.centered").text();
 
-      $.each(sudoku_cells.find("span.centered"), function() {
+      $.each(sudokuCells.find("span.centered"), function() {
         if ($(this).text() === number) {
           $(this)
             .parent()
@@ -171,27 +167,25 @@ $(function() {
     }
   }
 
-  /*
-    Events
-  */
-  $.each(sudoku_cells, function() {
-    var sudoku_cell = $(this);
+  // Events
+  $.each(sudokuCells, function() {
+    var sudokuCell = $(this);
 
-    sudoku_cell.on("mousedown touchstart", function(event) {
-      onMouseDown(sudoku_cell, event);
+    sudokuCell.on("mousedown touchstart", function(event) {
+      onMouseDown(sudokuCell, event);
     });
 
-    sudoku_cell.on("mouseover", function(event) {
-      onMouseOver(sudoku_cell, event);
+    sudokuCell.on("mouseover", function(event) {
+      onMouseOver(sudokuCell, event);
     });
 
-    sudoku_cell.on("touchmove", function(event) {
+    sudokuCell.on("touchmove", function(event) {
       var location = event.originalEvent.changedTouches[0],
-        new_sudoku_cell = document.elementFromPoint(
+        newSudokuCell = document.elementFromPoint(
           location.clientX,
           location.clientY
         );
-      onMouseOver($(new_sudoku_cell), event);
+      onMouseOver($(newSudokuCell), event);
     });
   });
 
@@ -199,9 +193,6 @@ $(function() {
     onMouseUp(event);
   });
 
-  /*
-  Number pressed on keyboard add value to selected
-  */
   $(document).on("keydown", function(event) {
     var isShift = event.shiftKey,
       keyPressed = event.key,
@@ -209,22 +200,9 @@ $(function() {
       selectedCells = getSelectedSudokuCells();
 
     if (!isShift && keyPressed > 0) {
-      if (selectedCells.length > 1) {
-        var existingNotes = selectedCells.find(
-          "[data-sudoku-value=" + keyPressed + "]"
-        ).length;
-        $.each(selectedCells, function() {
-          if (existingNotes < selectedCells.length) {
-            addPencilCentered($(this), keyPressed);
-          } else {
-            removePencilCentered($(this), keyPressed);
-          }
-        });
-      } else {
-        $.each(selectedCells, function() {
-          addNumber($(this), keyPressed);
-        });
-      }
+      $.each(selectedCells, function() {
+        addNumber($(this), keyPressed);
+      });
     } else if (isShift && keyCodePressed.startsWith("Digit")) {
       var numberPressed = keyCodePressed.substr(keyCodePressed.length - 1);
       if (numberPressed > 0) {
@@ -250,12 +228,8 @@ $(function() {
     }
   });
 
-  /*
-  Number button pressed
-   */
-  $.each(button_numbers, function() {
+  $.each(btnNumbers, function() {
     var button = $(this);
-
     button.on("click", function(event) {
       var number = button.data("number"),
         action = $('[name="action"]:checked').val(),
@@ -280,10 +254,7 @@ $(function() {
     });
   });
 
-  /*
-  Clear button pressed
-   */
-  button_delete.on("click", function() {
+  btnDelete.on("click", function() {
     $.each(getSelectedSudokuCells(), function() {
       if ($(this).find(".default").length !== 1) {
         $(this).empty();
