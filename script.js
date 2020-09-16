@@ -210,10 +210,12 @@ $(function() {
           "[data-sudoku-value=" + numberPressed + "]"
         ).length;
         $.each(selectedCells, function() {
-          if (existingNotes < selectedCells.length) {
-            addPencilCentered($(this), numberPressed);
-          } else {
-            removePencilCentered($(this), numberPressed);
+          if ($(this).find(".centered").length !== 1) {
+            if (existingNotes < selectedCells.length) {
+              addPencilCentered($(this), numberPressed);
+            } else {
+              removePencilCentered($(this), numberPressed);
+            }
           }
         });
       }
