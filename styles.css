@@ -56,7 +56,10 @@ body #sudoku-container .sudoku-row .sudoku-cell {
   justify-content: center;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.highlight {
-  background-color: #d1beb0;
+  background-color: #d1beb0 !important;
+}
+body #sudoku-container .sudoku-row .sudoku-cell.highlight-same {
+  background-color: #e2dad6;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--start {
   border-left-width: 4px;

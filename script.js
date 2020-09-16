@@ -1,7 +1,4 @@
 $(function() {
-  // TODO: Tidy up js
-  // TODO: Add touch support
-
   var sudoku_cells = $(".sudoku-cell"),
     button_numbers = $(".button-number"),
     button_delete = $("#button-delete"),
@@ -137,6 +134,9 @@ $(function() {
 
   function onMouseDown(sudoku_cell, event) {
     event.preventDefault();
+    $.each(sudoku_cells, function() {
+      $(this).removeClass("highlight-same");
+    });
     if (!event.ctrlKey) {
       $.each(sudoku_cells, function() {
         $(this).removeClass("highlight");
@@ -156,6 +156,18 @@ $(function() {
   function onMouseUp(event) {
     if (is_highlighting) {
       is_highlighting = false;
+    }
+    var selected_cells = getSelectedSudokuCells();
+    if (selected_cells.length === 1) {
+      var number = selected_cells.find("span.centered").text();
+
+      $.each(sudoku_cells.find("span.centered"), function() {
+        if ($(this).text() === number) {
+          $(this)
+            .parent()
+            .addClass("highlight-same");
+        }
+      });
     }
   }
 

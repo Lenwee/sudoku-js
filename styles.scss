@@ -2,7 +2,7 @@ $charcoal: #383f51;
 $lavender_web: #dadff7;
 $y_blue: #3c4f76;
 $pale_silver: #d1beb0;
-$quick_silver: #ab9f9d;
+$quick_silver: #e2dad6;
 
 @media only screen and (max-width: 992px) {
   .container {
@@ -73,7 +73,11 @@ body {
         justify-content: center;
 
         &.highlight {
-          background-color: $pale_silver;
+          background-color: $pale_silver !important;
+        }
+
+        &.highlight-same {
+          background-color: $quick_silver;
         }
 
         &.sudoku-cell--start {
