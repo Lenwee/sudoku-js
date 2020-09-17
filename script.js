@@ -89,6 +89,24 @@ $(function() {
     }
   }
 
+  function highlightSame() {
+    $.each(sudokuCells, function() {
+      $(this).removeClass("highlight-same");
+    });
+    var selectedCells = getSelectedSudokuCells();
+    if (selectedCells.length === 1) {
+      var number = selectedCells.find("span.centered").text();
+
+      $.each(sudokuCells.find("span.centered"), function() {
+        if ($(this).text() === number) {
+          $(this)
+            .parent()
+            .addClass("highlight-same");
+        }
+      });
+    }
+  }
+
   function moveSelected(cell, direction) {
     var cellIndex = $(cell).index(".sudoku-cell"),
       row = Math.floor(cellIndex / 9),
@@ -126,19 +144,18 @@ $(function() {
     }
     var newCellIndex = row * 9 + col;
     $(sudokuCells[newCellIndex]).addClass("highlight");
+    highlightSame();
   }
 
   function onMouseDown(sudokuCell, event) {
     event.preventDefault();
-    $.each(sudokuCells, function() {
-      $(this).removeClass("highlight-same");
-    });
     if (!event.ctrlKey) {
       $.each(sudokuCells, function() {
         $(this).removeClass("highlight");
       });
     }
     sudokuCell.addClass("highlight");
+    highlightSame();
     isHighlighting = true;
   }
 
@@ -146,6 +163,7 @@ $(function() {
     event.preventDefault();
     if (isHighlighting) {
       sudokuCell.addClass("highlight");
+      highlightSame();
     }
   }
 
@@ -153,18 +171,7 @@ $(function() {
     if (isHighlighting) {
       isHighlighting = false;
     }
-    var selectedCells = getSelectedSudokuCells();
-    if (selectedCells.length === 1) {
-      var number = selectedCells.find("span.centered").text();
-
-      $.each(sudokuCells.find("span.centered"), function() {
-        if ($(this).text() === number) {
-          $(this)
-            .parent()
-            .addClass("highlight-same");
-        }
-      });
-    }
+    highlightSame();
   }
 
   // Events
@@ -226,6 +233,7 @@ $(function() {
         }
       });
     } else if (keyPressed.startsWith("Arrow")) {
+      event.preventDefault();
       moveSelected(selectedCells[0], keyPressed);
     }
   });
