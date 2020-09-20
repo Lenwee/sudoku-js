@@ -242,9 +242,9 @@ $(function() {
         location.clientY
       );
     if (isHighlighting) {
-      sudokuCell.addClass("highlight");
-      if (sudokuCell.find("span.centered")) {
-        highlightNumber(sudokuCell.find("span.centered").text());
+      $(sudokuCell).addClass("highlight");
+      if ($(sudokuCell).find("span.centered")) {
+        highlightNumber($(sudokuCell).find("span.centered").text());
       }
     }
   })
