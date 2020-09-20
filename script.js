@@ -77,7 +77,9 @@ $(function() {
   }
 
   function emptyCell(cell) {
-    cell.empty();
+    if (cell.find(".centered.default").length === 0) {
+      cell.empty();
+    }
   }
 
   // Grid Functions
@@ -168,7 +170,7 @@ $(function() {
       row = Math.floor(cellIndex / 9),
       col = cellIndex % 9;
 
-    sudokuCells.forEach(function() {
+    $.each(sudokuCells, function() {
       $(this).removeClass("highlight");
     });
 
@@ -262,7 +264,7 @@ $(function() {
       selectedCells = getSelectedCells();
 
     if (!isShift && keyPressed > 0) {
-      selectedCells.forEach(function () {
+      $.each(selectedCells, function () {
         addUserNumber($(this), keyPressed);
       })
     } else if (isShift && codePressed.startsWith('Digit')) {
@@ -271,7 +273,7 @@ $(function() {
         var existingNotes = selectedCells.find(
           "[data-sudoku-value=" + number + "]"
         ).length;
-        selectedCells.forEach(function () {
+        $.each(selectedCells, function () {
           if (existingNotes < selectedCells.length) {
             addPencilNumber($(this), number);
           } else {
@@ -280,7 +282,7 @@ $(function() {
         })
       }
     } else if (keyPressed === 'Delete' || keyPressed === 'Backspace'){
-      getSelectedCells().forEach(function() {
+      $.each(getSelectedCells(), function() {
         emptyCell($(this))
       });
     } else if (keyPressed.startsWith("Arrow")) {
@@ -292,18 +294,18 @@ $(function() {
   // Button Controls
   btnNumbers.on('click', function (event) {
     var number = $(this).data('number'),
-      action = $('[name="action"]'),
+      action = $('[name="action"]:checked').val(),
       selectedCells = getSelectedCells();
 
     if (action === 'confirm') {
-      selectedCells.forEach(function () {
+      $.each(selectedCells, function () {
         addUserNumber($(this), number);
       });
     } else if (action === 'penicl') {
       var existingNotes = selectedCells.find(
         "[data-sudoku-value=" + number + "]"
       ).length;
-      selectedCells.forEach(function () {
+      $.each(selectedCells, function () {
         if (existingNotes < selectedCells.length) {
           addPencilNumber($(this), number);
         } else {
@@ -314,7 +316,7 @@ $(function() {
   });
 
   btnDelete.on("click", function() {
-    getSelectedCells().forEach(function() {
+    $.each(getSelectedCells(), function() {
       emptyCell($(this))
     });
   });
