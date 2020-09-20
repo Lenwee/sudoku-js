@@ -2,6 +2,7 @@ $(function() {
   var sudokuCells = $(".sudoku-cell"),
     btnNumbers = $(".btn-number"),
     btnDelete = $("#btn-delete"),
+    btnUndo = $("#btn-undo"),
     isHighlighting = false,
     startingGrid = [
       [{type: 'D', value: 3}, 0, {type: 'D', value: 6}, {type: 'D', value: 5}, 0, {type: 'D', value: 8}, {type: 'D', value: 4}, 0, 0],
@@ -13,7 +14,8 @@ $(function() {
       [{type: 'D', value: 1}, {type: 'D', value: 3}, 0, 0, 0, 0, {type: 'D', value: 2}, {type: 'D', value: 5}, 0],
       [0, 0, 0, 0, 0, 0, {type: 'P', value: [9,8,7,6,5]}, {type: 'D', value: 7}, {type: 'D', value: 4}],
       [0, 0, {type: 'D', value: 4}, {type: 'D', value: 2}, 0, {type: 'D', value: 6}, {type: 'D', value: 3}, 0, 0]
-    ];
+    ],
+    gridHistory = [];
 
   // Cell Functions
   function addDefaultNumber(cell, number) {
@@ -88,6 +90,7 @@ $(function() {
       $.each(row, function(columnIndex, cellValue) {
         var cellIndex = rowIndex * 9 + columnIndex,
           cell = $(sudokuCells[cellIndex])
+        cell.empty();
         if (cellValue !== 0) {
           if (cellValue['type'] === 'D') {
             addDefaultNumber(cell, cellValue['value'])
@@ -143,6 +146,53 @@ $(function() {
       });
     });
     return gridState;
+  }
+
+  function checkGridsDifferent(grid1, grid2){
+    var isDifferent = false;
+    $.each(grid1, function(rowIndex, row) {
+      $.each(row, function(columnIndex) {
+        if(grid1[rowIndex][columnIndex] !== grid2[rowIndex][columnIndex]) {
+          var grid1Value = grid1[rowIndex][columnIndex],
+            grid2Value = grid2[rowIndex][columnIndex];
+
+          if (grid1Value === 0 && typeof grid2Value === "object") {
+            isDifferent = true;
+          } else if (grid2Value === 0 && typeof grid1Value === "object"){
+            isDifferent = true;
+          } else {
+            if (grid1Value['type'] !== grid2Value['type'] || grid1Value['value'] !== grid2Value['value']) {
+              if (typeof grid1Value['value'] === 'object' && typeof grid2Value['value'] === 'object') {
+                if (grid1Value['value'].length !== grid2Value['value'].length) {
+                  isDifferent = true;
+                  return
+                }
+                var grid1Array = grid1Value['value'].concat().sort(),
+                  grid2Array = grid2Value['value'].concat().sort();
+
+                for (var i = 0; i < grid1Array.length; i ++) {
+                  if (grid1Array[i] !== grid2Array[i]) {
+                    isDifferent = true
+                    return
+                  }
+                }
+              } else {
+                isDifferent = true;
+              }
+            }
+          }
+        }
+      });
+    });
+    return isDifferent;
+  }
+
+  function updateGridHistory() {
+    var currentGridState = getGridState(),
+      previousGridState = gridHistory[gridHistory.length-1];
+    if (checkGridsDifferent(currentGridState, previousGridState)) {
+      gridHistory.push(currentGridState);
+    }
   }
 
   function getSelectedCells() {
@@ -264,6 +314,7 @@ $(function() {
       selectedCells = getSelectedCells();
 
     if (!isShift && keyPressed > 0) {
+      updateGridHistory();
       $.each(selectedCells, function () {
         addUserNumber($(this), keyPressed);
       })
@@ -273,6 +324,7 @@ $(function() {
         var existingNotes = selectedCells.find(
           "[data-sudoku-value=" + number + "]"
         ).length;
+        updateGridHistory();
         $.each(selectedCells, function () {
           if (existingNotes < selectedCells.length) {
             addPencilNumber($(this), number);
@@ -282,6 +334,7 @@ $(function() {
         })
       }
     } else if (keyPressed === 'Delete' || keyPressed === 'Backspace'){
+      updateGridHistory();
       $.each(getSelectedCells(), function() {
         emptyCell($(this))
       });
@@ -293,6 +346,7 @@ $(function() {
 
   // Button Controls
   btnNumbers.on('click', function (event) {
+    updateGridHistory();
     var number = $(this).data('number'),
       action = $('[name="action"]:checked').val(),
       selectedCells = getSelectedCells();
@@ -316,10 +370,21 @@ $(function() {
   });
 
   btnDelete.on("click", function() {
+    updateGridHistory();
     $.each(getSelectedCells(), function() {
       emptyCell($(this))
     });
   });
 
+  btnUndo.on('click', function () {
+    if (gridHistory.length > 1) {
+      var newGridState = gridHistory.pop();
+      setGridState(newGridState);
+    } else if (gridHistory.length === 1) {
+      setGridState(gridHistory[0])
+    }
+  })
+
   setGridState(startingGrid);
+  gridHistory.push(startingGrid);
 });
