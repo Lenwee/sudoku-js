@@ -4,37 +4,31 @@ $(function() {
     btnDelete = $("#btn-delete"),
     isHighlighting = false,
     startingGrid = [
-      [3, 0, 6, 5, 0, 8, 4, 0, 0],
-      [5, 2, 0, 0, 0, 0, 0, 0, 0],
-      [0, 8, 7, 0, 0, 0, 0, 3, 1],
-      [0, 0, 3, 0, 1, 0, 0, 8, 0],
-      [9, 0, 0, 8, 6, 3, 0, 0, 5],
-      [0, 5, 0, 0, 9, 0, 6, 0, 0],
-      [1, 3, 0, 0, 0, 0, 2, 5, 0],
-      [0, 0, 0, 0, 0, 0, 0, 7, 4],
-      [0, 0, 5, 2, 0, 6, 3, 0, 0]
+      [{type: 'D', value: 3}, 0, {type: 'D', value: 6}, {type: 'D', value: 5}, 0, {type: 'D', value: 8}, {type: 'D', value: 4}, 0, 0],
+      [{type: 'D', value: 5}, {type: 'D', value: 2}, 0, 0, 0, 0, 0, 0, 0],
+      [0, {type: 'D', value: 8}, {type: 'D', value: 7}, 0, 0, 0, 0, {type: 'D', value: 3}, {type: 'D', value: 1}],
+      [0, 0, {type: 'D', value: 3}, 0, {type: 'D', value: 1}, 0, 0, {type: 'D', value: 8}, 0],
+      [{type: 'D', value: 9}, 0, 0, {type: 'D', value: 8}, {type: 'D', value: 6}, {type: 'D', value: 3}, 0, 0, {type: 'D', value: 5}],
+      [0, {type: 'D', value: 5}, 0, 0, {type: 'D', value: 9}, 0, {type: 'D', value: 6}, 0, 0],
+      [{type: 'D', value: 1}, {type: 'D', value: 3}, 0, 0, 0, 0, {type: 'D', value: 2}, {type: 'D', value: 5}, 0],
+      [0, 0, 0, 0, 0, 0, {type: 'P', value: [9,8,7,6,5]}, {type: 'D', value: 7}, {type: 'D', value: 4}],
+      [0, 0, {type: 'D', value: 4}, {type: 'D', value: 2}, 0, {type: 'D', value: 6}, {type: 'D', value: 3}, 0, 0]
     ];
 
-  // Populate Starting Grid
-  $.each(startingGrid, function(rowIndex, row) {
-    $.each(row, function(columnIndex, cellValue) {
-      var cellIndex = rowIndex * 9 + columnIndex;
-      if (cellValue > 0) {
-        $(sudokuCells[cellIndex]).append(
-          "<span class='centered default'>" + cellValue + "</span>"
-        );
-      }
-    });
-  });
-
-  // Helper Functions
-  function getSelectedSudokuCells() {
-    return sudokuCells.filter(function() {
-      return $(this).hasClass("highlight");
-    });
+  // Cell Functions
+  function addDefaultNumber(cell, number) {
+    cell.empty();
+    cell.append("<span class='centered default'>" + number + "</span>");
   }
 
-  function addPencilCentered(cell, number) {
+  function addUserNumber(cell, number) {
+    if (cell.find(".default").length !== 1) {
+      cell.empty();
+      cell.append("<span class='centered'>" + number + "</span>");
+    }
+  }
+
+  function addPencilNumber(cell, number) {
     if (cell.find(".default").length !== 1) {
       if (cell.find("[data-sudoku-value=" + number + "]").length === 0) {
         if (cell.find(".centered").length > 0) {
@@ -43,10 +37,10 @@ $(function() {
         if (cell.find("span").length === 0) {
           cell.append(
             "<span class='pencil pencil--centered' data-sudoku-value='" +
-              number +
-              "'>" +
-              number +
-              "</span>"
+            number +
+            "'>" +
+            number +
+            "</span>"
           );
         } else {
           var spanAdded = false;
@@ -56,10 +50,10 @@ $(function() {
                 spanAdded = true;
                 $(
                   "<span class='pencil pencil--centered' data-sudoku-value='" +
-                    number +
-                    "'>" +
-                    number +
-                    "</span>"
+                  number +
+                  "'>" +
+                  number +
+                  "</span>"
                 ).insertBefore($(this));
               }
             }
@@ -67,10 +61,10 @@ $(function() {
           if (!spanAdded) {
             cell.append(
               "<span class='pencil pencil--centered' data-sudoku-value='" +
-                number +
-                "'>" +
-                number +
-                "</span>"
+              number +
+              "'>" +
+              number +
+              "</span>"
             );
           }
         }
@@ -82,29 +76,91 @@ $(function() {
     cell.find('[data-sudoku-value="' + number + '"]').remove();
   }
 
-  function addNumber(cell, number) {
-    if (cell.find(".default").length !== 1) {
-      cell.empty();
-      cell.append("<span class='centered'>" + number + "</span>");
-    }
+  function emptyCell(cell) {
+    cell.empty();
   }
 
-  function highlightSame() {
-    $.each(sudokuCells, function() {
-      $(this).removeClass("highlight-same");
-    });
-    var selectedCells = getSelectedSudokuCells();
-    if (selectedCells.length === 1) {
-      var number = selectedCells.find("span.centered").text();
-
-      $.each(sudokuCells.find("span.centered"), function() {
-        if ($(this).text() === number) {
-          $(this)
-            .parent()
-            .addClass("highlight-same");
+  // Grid Functions
+  function setGridState(grid) {
+    $.each(grid, function(rowIndex, row) {
+      $.each(row, function(columnIndex, cellValue) {
+        var cellIndex = rowIndex * 9 + columnIndex,
+          cell = $(sudokuCells[cellIndex])
+        if (cellValue !== 0) {
+          if (cellValue['type'] === 'D') {
+            addDefaultNumber(cell, cellValue['value'])
+          } else if (cellValue['type'] === 'U') {
+            addUserNumber(cell, cellValue['value'])
+          } else if (cellValue['type'] === 'P') {
+            cellValue['value'].forEach(function (value, index) {
+              addPencilNumber(cell, value)
+            })
+          }
         }
       });
+    });
+  }
+
+  function getGridState() {
+    var gridState = [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ];
+
+    $.each(gridState, function(rowIndex, row) {
+      $.each(row, function(columnIndex) {
+        var cellIndex = rowIndex * 9 + columnIndex,
+          cell = $(sudokuCells[cellIndex]);
+        if (cell.find(".centered.default").length > 0) {
+          gridState[rowIndex][columnIndex] = {
+            type: 'D',
+            value: parseInt(cell.find(".centered").text())
+          };
+        } else if (cell.find(".centered").length > 0) {
+          gridState[rowIndex][columnIndex] = {
+            type: 'U',
+            value: parseInt(cell.find(".centered").text())
+          };
+        } else if (cell.find(".pencil").length > 0) {
+          var pencil = [];
+          $.each(cell.find(".pencil"), function() {
+            pencil.push(parseInt($(this).text()));
+          });
+          gridState[rowIndex][columnIndex] = {
+            type: 'P',
+            value: pencil
+          };
+        }
+      });
+    });
+    return gridState;
+  }
+
+  function getSelectedCells() {
+    return sudokuCells.filter(function() {
+      return $(this).hasClass("highlight");
+    });
+  }
+
+  function highlightNumber(number) {
+    sudokuCells.each(function() {
+      $(this).removeClass("highlight-same");
+    });
+    if (getSelectedCells().length > 1) {
+      return
     }
+    $.each(sudokuCells.find("span.centered"), function() {
+      if ($(this).text() === number) {
+        $(this).parent().addClass("highlight-same");
+      }
+    });
   }
 
   function moveSelected(cell, direction) {
@@ -112,7 +168,7 @@ $(function() {
       row = Math.floor(cellIndex / 9),
       col = cellIndex % 9;
 
-    $.each(sudokuCells, function() {
+    sudokuCells.forEach(function() {
       $(this).removeClass("highlight");
     });
 
@@ -144,93 +200,88 @@ $(function() {
     }
     var newCellIndex = row * 9 + col;
     $(sudokuCells[newCellIndex]).addClass("highlight");
-    highlightSame();
+    if ($(sudokuCells[newCellIndex]).find("span.centered")) {
+      highlightNumber($(sudokuCells[newCellIndex]).find("span.centered").text());
+    }
   }
 
-  function onMouseDown(sudokuCell, event) {
+  // Mouse/Touch Events
+  sudokuCells.on('mousedown touchstart', function(event) {
     event.preventDefault();
+    var sudokuCell = $(this);
     if (!event.ctrlKey) {
-      $.each(sudokuCells, function() {
+      $.each(sudokuCells, function () {
         $(this).removeClass("highlight");
-      });
+      })
     }
     sudokuCell.addClass("highlight");
-    highlightSame();
+    if (sudokuCell.find("span.centered")) {
+      highlightNumber(sudokuCell.find("span.centered").text());
+    }
     isHighlighting = true;
-  }
+  });
 
-  function onMouseOver(sudokuCell, event) {
+  sudokuCells.on('mouseover', function (event) {
     event.preventDefault();
+    var sudokuCell = $(this);
     if (isHighlighting) {
       sudokuCell.addClass("highlight");
-      highlightSame();
+      if (sudokuCell.find("span.centered")) {
+        highlightNumber(sudokuCell.find("span.centered").text());
+      }
     }
-  }
+  });
 
-  function onMouseUp(event) {
+  sudokuCells.on('touchmove', function (event) {
+    event.preventDefault();
+    var location = event.originalEvent.changedTouches[0],
+      sudokuCell = document.elementFromPoint(
+        location.clientX,
+        location.clientY
+      );
+    if (isHighlighting) {
+      sudokuCell.addClass("highlight");
+      if (sudokuCell.find("span.centered")) {
+        highlightNumber(sudokuCell.find("span.centered").text());
+      }
+    }
+  })
+
+  $(document).on("mouseup touchend", function(event) {
+    event.preventDefault();
     if (isHighlighting) {
       isHighlighting = false;
     }
-    highlightSame();
-  }
-
-  // Events
-  $.each(sudokuCells, function() {
-    var sudokuCell = $(this);
-
-    sudokuCell.on("mousedown touchstart", function(event) {
-      onMouseDown(sudokuCell, event);
-    });
-
-    sudokuCell.on("mouseover", function(event) {
-      onMouseOver(sudokuCell, event);
-    });
-
-    sudokuCell.on("touchmove", function(event) {
-      var location = event.originalEvent.changedTouches[0],
-        newSudokuCell = document.elementFromPoint(
-          location.clientX,
-          location.clientY
-        );
-      onMouseOver($(newSudokuCell), event);
-    });
   });
 
-  $(document).on("mouseup touchend", function(event) {
-    onMouseUp(event);
-  });
-
-  $(document).on("keydown", function(event) {
+  // Keyboard Controls
+  $(document).on('keydown', function (event) {
     var isShift = event.shiftKey,
       keyPressed = event.key,
-      keyCodePressed = event.code,
-      selectedCells = getSelectedSudokuCells();
+      codePressed = event.code,
+      selectedCells = getSelectedCells();
 
     if (!isShift && keyPressed > 0) {
-      $.each(selectedCells, function() {
-        addNumber($(this), keyPressed);
-      });
-    } else if (isShift && keyCodePressed.startsWith("Digit")) {
-      var numberPressed = keyCodePressed.substr(keyCodePressed.length - 1);
-      if (numberPressed > 0) {
+      selectedCells.forEach(function () {
+        addUserNumber($(this), keyPressed);
+      })
+    } else if (isShift && codePressed.startsWith('Digit')) {
+      var number = codePressed.substr(codePressed.length - 1);
+      if (number > 0) {
         var existingNotes = selectedCells.find(
-          "[data-sudoku-value=" + numberPressed + "]"
+          "[data-sudoku-value=" + number + "]"
         ).length;
-        $.each(selectedCells, function() {
-          if ($(this).find(".centered").length !== 1) {
-            if (existingNotes < selectedCells.length) {
-              addPencilCentered($(this), numberPressed);
-            } else {
-              removePencilCentered($(this), numberPressed);
-            }
+        selectedCells.forEach(function () {
+          if (existingNotes < selectedCells.length) {
+            addPencilNumber($(this), number);
+          } else {
+            removePencilCentered($(this), number);
           }
-        });
+        })
       }
-    } else if (keyPressed === "Delete" || keyPressed === "Backspace") {
-      $.each(selectedCells, function() {
-        if ($(this).find(".default").length !== 1) {
-          $(this).empty();
-        }
+    } else if (keyPressed === 'Delete' || keyPressed === 'Backspace'){
+      getSelectedCells().forEach(function() {
+        emptyCell($(this))
       });
     } else if (keyPressed.startsWith("Arrow")) {
       event.preventDefault();
@@ -238,37 +289,35 @@ $(function() {
     }
   });
 
-  $.each(btnNumbers, function() {
-    var button = $(this);
-    button.on("click", function(event) {
-      var number = button.data("number"),
-        action = $('[name="action"]:checked').val(),
-        selectedCells = getSelectedSudokuCells();
+  // Button Controls
+  btnNumbers.on('click', function (event) {
+    var number = $(this).data('number'),
+      action = $('[name="action"]'),
+      selectedCells = getSelectedCells();
 
-      if (action === "confirm") {
-        $.each(selectedCells, function() {
-          addNumber($(this), number);
-        });
-      } else if (action === "pencil") {
-        var existingNotes = selectedCells.find(
-          "[data-sudoku-value=" + number + "]"
-        ).length;
-        $.each(selectedCells, function() {
-          if (existingNotes < selectedCells.length) {
-            addPencilCentered($(this), number);
-          } else {
-            removePencilCentered($(this), number);
-          }
-        });
-      }
-    });
+    if (action === 'confirm') {
+      selectedCells.forEach(function () {
+        addUserNumber($(this), number);
+      });
+    } else if (action === 'penicl') {
+      var existingNotes = selectedCells.find(
+        "[data-sudoku-value=" + number + "]"
+      ).length;
+      selectedCells.forEach(function () {
+        if (existingNotes < selectedCells.length) {
+          addPencilNumber($(this), number);
+        } else {
+          removePencilCentered($(this), number);
+        }
+      })
+    }
   });
 
   btnDelete.on("click", function() {
-    $.each(getSelectedSudokuCells(), function() {
-      if ($(this).find(".default").length !== 1) {
-        $(this).empty();
-      }
+    getSelectedCells().forEach(function() {
+      emptyCell($(this))
     });
   });
+
+  setGridState(startingGrid);
 });
