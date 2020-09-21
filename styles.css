@@ -161,9 +161,7 @@ body #sudoku-controls label.btn:focus,
 body #sudoku-controls button.btn:focus {
   box-shadow: none !important;
 }
-body #sudoku-controls label i,
 body #sudoku-controls label span,
-body #sudoku-controls button i,
 body #sudoku-controls button span {
   display: -webkit-flexbox;
   display: -ms-flexbox;
@@ -183,35 +181,25 @@ body #sudoku-controls button span {
   border-radius: 25%;
 }
 @media only screen and (min-width: 992px) {
-  body #sudoku-controls label i i,
-body #sudoku-controls label i span,
-body #sudoku-controls label span i,
+  body #sudoku-controls label span i,
 body #sudoku-controls label span span,
-body #sudoku-controls button i i,
-body #sudoku-controls button i span,
 body #sudoku-controls button span i,
 body #sudoku-controls button span span {
     width: 33%;
     height: 100vw;
   }
 }
-body #sudoku-controls label i:hover,
 body #sudoku-controls label span:hover,
-body #sudoku-controls button i:hover,
 body #sudoku-controls button span:hover {
   opacity: 0.6;
   cursor: pointer;
 }
-body #sudoku-controls label i:active,
 body #sudoku-controls label span:active,
-body #sudoku-controls button i:active,
 body #sudoku-controls button span:active {
   opacity: 0.4;
   cursor: pointer;
 }
-body #sudoku-controls label i:focus,
 body #sudoku-controls label span:focus,
-body #sudoku-controls button i:focus,
 body #sudoku-controls button span:focus {
   outline: none;
 }
