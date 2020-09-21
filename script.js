@@ -3,6 +3,7 @@ $(function() {
     btnNumbers = $(".btn-number"),
     btnDelete = $("#btn-delete"),
     btnUndo = $("#btn-undo"),
+    btnRedo = $("#btn-redo"),
     isHighlighting = false,
     startingGrid = [
       [{type: 'D', value: 3}, 0, {type: 'D', value: 6}, {type: 'D', value: 5}, 0, {type: 'D', value: 8}, {type: 'D', value: 4}, 0, 0],
@@ -12,10 +13,11 @@ $(function() {
       [{type: 'D', value: 9}, 0, 0, {type: 'D', value: 8}, {type: 'D', value: 6}, {type: 'D', value: 3}, 0, 0, {type: 'D', value: 5}],
       [0, {type: 'D', value: 5}, 0, 0, {type: 'D', value: 9}, 0, {type: 'D', value: 6}, 0, 0],
       [{type: 'D', value: 1}, {type: 'D', value: 3}, 0, 0, 0, 0, {type: 'D', value: 2}, {type: 'D', value: 5}, 0],
-      [0, 0, 0, 0, 0, 0, {type: 'P', value: [9,8,7,6,5]}, {type: 'D', value: 7}, {type: 'D', value: 4}],
+      [0, 0, 0, 0, 0, 0, 0, {type: 'D', value: 7}, {type: 'D', value: 4}],
       [0, 0, {type: 'D', value: 4}, {type: 'D', value: 2}, 0, {type: 'D', value: 6}, {type: 'D', value: 3}, 0, 0]
     ],
-    gridHistory = [];
+    gridUndoHistory = [],
+    gridRedoHistory = [];
 
   // Cell Functions
   function addDefaultNumber(cell, number) {
@@ -189,9 +191,11 @@ $(function() {
 
   function updateGridHistory() {
     var currentGridState = getGridState(),
-      previousGridState = gridHistory[gridHistory.length-1];
+      previousGridState = gridUndoHistory[gridUndoHistory.length-1];
+    gridRedoHistory = [];
+
     if (checkGridsDifferent(currentGridState, previousGridState)) {
-      gridHistory.push(currentGridState);
+      gridUndoHistory.push(currentGridState);
     }
   }
 
@@ -302,7 +306,7 @@ $(function() {
   $(document).on("mouseup touchend", function(event) {
     event.preventDefault();
     if (isHighlighting) {
-      isHighlighting = false;
+      isHighlighting = false
     }
   });
 
@@ -377,14 +381,21 @@ $(function() {
   });
 
   btnUndo.on('click', function () {
-    if (gridHistory.length > 1) {
-      var newGridState = gridHistory.pop();
+    if (gridUndoHistory.length >= 1) {
+      var newGridState = gridUndoHistory.pop();
+      gridRedoHistory.push(getGridState());
       setGridState(newGridState);
-    } else if (gridHistory.length === 1) {
-      setGridState(gridHistory[0])
     }
   })
 
+  btnRedo.on('click', function () {
+    if (gridRedoHistory.length > 0) {
+      var newGridState = gridRedoHistory.pop();
+      gridUndoHistory.push(getGridState());
+      setGridState(newGridState);
+    }
+  });
+
   setGridState(startingGrid);
-  gridHistory.push(startingGrid);
+  gridUndoHistory.push(startingGrid);
 });
