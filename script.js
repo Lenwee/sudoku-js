@@ -272,9 +272,6 @@ $(function() {
       })
     }
     sudokuCell.addClass("highlight");
-    if (sudokuCell.find("span.centered")) {
-      highlightNumber(sudokuCell.find("span.centered").text());
-    }
     isHighlighting = true;
   });
 
@@ -307,6 +304,12 @@ $(function() {
   $(document).on("mouseup touchend", function(event) {
     if (isHighlighting) {
       isHighlighting = false
+    }
+    if (getSelectedCells().length === 1) {
+      var sudokuCell = $(getSelectedCells()[0])
+      if (sudokuCell.find("span.centered")) {
+        highlightNumber(sudokuCell.find("span.centered").text());
+      }
     }
   });
 
