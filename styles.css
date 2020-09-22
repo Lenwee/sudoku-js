@@ -151,8 +151,6 @@ body #sudoku-controls input[type=checkbox]:checked + label > i, body #sudoku-con
 }
 body #sudoku-controls label,
 body #sudoku-controls button {
-  display: block;
-  float: left;
   margin-bottom: 0;
 }
 body #sudoku-controls label.btn,

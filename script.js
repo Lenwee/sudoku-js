@@ -305,7 +305,6 @@ $(function() {
   })
 
   $(document).on("mouseup touchend", function(event) {
-    event.preventDefault();
     if (isHighlighting) {
       isHighlighting = false
     }
