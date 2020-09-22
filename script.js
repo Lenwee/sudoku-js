@@ -4,6 +4,7 @@ $(function() {
     btnDelete = $("#btn-delete"),
     btnUndo = $("#btn-undo"),
     btnRedo = $("#btn-redo"),
+    chkPencil = $("#chk-pencil")
     isHighlighting = false,
     startingGrid = [
       [{type: 'D', value: 3}, 0, {type: 'D', value: 6}, {type: 'D', value: 5}, 0, {type: 'D', value: 8}, {type: 'D', value: 4}, 0, 0],
@@ -352,14 +353,13 @@ $(function() {
   btnNumbers.on('click', function (event) {
     updateGridHistory();
     var number = $(this).data('number'),
-      action = $('[name="action"]:checked').val(),
       selectedCells = getSelectedCells();
 
-    if (action === 'confirm') {
+    if (chkPencil.is(':not(:checked)')) {
       $.each(selectedCells, function () {
         addUserNumber($(this), number);
       });
-    } else if (action === 'penicl') {
+    } else if (chkPencil.is(':checked')) {
       var existingNotes = selectedCells.find(
         "[data-sudoku-value=" + number + "]"
       ).length;

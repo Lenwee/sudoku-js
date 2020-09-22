@@ -4,7 +4,7 @@
   }
 
   #sudoku-container span.centered {
-    font-size: 28px !important;
+    font-size: 24px !important;
   }
   #sudoku-container span.pencil {
     font-size: 10px !important;
@@ -142,15 +142,17 @@ body #sudoku-container span.pencil.pencil--centered:first-child {
 body #sudoku-container span.pencil.pencil--centered:last-child {
   margin-right: auto;
 }
-body #sudoku-controls input[type=radio] {
+body #sudoku-controls input[type=checkbox] {
   display: none;
 }
-body #sudoku-controls input[type=radio]:checked + label > i, body #sudoku-controls input[type=radio]:checked + label > span {
+body #sudoku-controls input[type=checkbox]:checked + label > i, body #sudoku-controls input[type=checkbox]:checked + label > span {
   color: #383f51;
   background-color: #dadff7;
 }
 body #sudoku-controls label,
 body #sudoku-controls button {
+  display: block;
+  float: left;
   margin-bottom: 0;
 }
 body #sudoku-controls label.btn,
@@ -181,9 +183,7 @@ body #sudoku-controls button span {
   border-radius: 25%;
 }
 @media only screen and (min-width: 992px) {
-  body #sudoku-controls label span i,
-body #sudoku-controls label span span,
-body #sudoku-controls button span i,
+  body #sudoku-controls label span span,
 body #sudoku-controls button span span {
     width: 33%;
     height: 100vw;

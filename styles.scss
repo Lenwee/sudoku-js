@@ -11,7 +11,7 @@ $quick_silver: #e2dad6;
   #sudoku-container {
     span {
       &.centered {
-        font-size: 28px !important;
+        font-size: 24px !important;
       }
 
       &.pencil {
@@ -182,7 +182,7 @@ body {
   }
 
   #sudoku-controls {
-    input[type="radio"] {
+    input[type="checkbox"] {
       display: none;
 
       &:checked + label > i,
@@ -194,6 +194,8 @@ body {
 
     label,
     button {
+      display: block;
+      float:left;
       margin-bottom: 0;
       &.btn {
         padding: 0;
@@ -222,7 +224,6 @@ body {
         border-radius: 25%;
 
         @media only screen and (min-width: 992px) {
-          i,
           span {
             width: 33%;
             height: 100vw;
