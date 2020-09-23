@@ -4,7 +4,7 @@ $(function() {
     btnDelete = $("#btn-delete"),
     btnUndo = $("#btn-undo"),
     btnRedo = $("#btn-redo"),
-    chkPencil = $("#chk-pencil")
+    chkPencil = $("#chk-pencil"),
     isHighlighting = false,
     startingGrid = [
       [{type: 'D', value: 3}, 0, {type: 'D', value: 6}, {type: 'D', value: 5}, 0, {type: 'D', value: 8}, {type: 'D', value: 4}, 0, 0],
@@ -383,10 +383,12 @@ $(function() {
   });
 
   btnUndo.on('click', function () {
-    if (gridUndoHistory.length >= 1) {
+    if (gridUndoHistory.length > 1) {
       var newGridState = gridUndoHistory.pop();
       gridRedoHistory.push(getGridState());
       setGridState(newGridState);
+    } else if (gridUndoHistory.length === 1) {
+      setGridState(gridUndoHistory[0])
     }
   })
 
