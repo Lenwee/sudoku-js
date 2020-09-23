@@ -13,18 +13,16 @@
   #sudoku-controls {
     margin: 0 auto;
   }
-  #sudoku-controls label i,
-#sudoku-controls label span,
-#sudoku-controls button i,
-#sudoku-controls button span {
-    width: 48px !important;
-    height: 48px !important;
-    font-size: 32px !important;
+  #sudoku-controls label span,
+#sudoku-controls .btn span {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 28px !important;
     border-width: 2px !important;
   }
 }
 body {
-  background-color: #dadff7;
+  background-color: #fcfcfc;
   font-family: Source Sans Pro, sans-serif;
 }
 body #sudoku-container {
@@ -47,7 +45,7 @@ body #sudoku-container .sudoku-row.sudoku-row--bottom:last-child .sudoku-cell {
   border-bottom-width: 4px;
 }
 body #sudoku-container .sudoku-row .sudoku-cell {
-  border: #383f51 1px solid;
+  border: #3f4b82 1px solid;
   padding: 2px;
   width: 11.1111111111% !important;
   cursor: pointer;
@@ -56,10 +54,10 @@ body #sudoku-container .sudoku-row .sudoku-cell {
   justify-content: center;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.highlight {
-  background-color: #d1beb0 !important;
+  background-color: #858eaf !important;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.highlight-same {
-  background-color: #e2dad6;
+  background-color: #a9b0c6;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--start {
   border-left-width: 4px;
@@ -72,14 +70,14 @@ body #sudoku-container span.centered {
   margin: auto;
   justify-content: center;
   -ms-flex-pack: center !important;
-  color: #3c4f76;
+  color: #626c98;
 }
 body #sudoku-container span.centered.default {
-  color: #383f51;
+  color: #3f4b82;
 }
 body #sudoku-container span.pencil {
   font-size: 16px;
-  color: #3c4f76;
+  color: #626c98;
 }
 body #sudoku-container span.pencil.pencil--top {
   top: 5%;
@@ -146,8 +144,8 @@ body #sudoku-controls input[type=checkbox] {
   display: none;
 }
 body #sudoku-controls input[type=checkbox]:checked + label > i, body #sudoku-controls input[type=checkbox]:checked + label > span {
-  color: #383f51;
-  background-color: #dadff7;
+  color: #3f4b82;
+  background-color: #fcfcfc;
 }
 body #sudoku-controls label,
 body #sudoku-controls button {
@@ -175,9 +173,9 @@ body #sudoku-controls button span {
   width: 72px;
   height: 72px;
   font-size: 48px;
-  color: #dadff7;
-  border: solid 5px #383f51;
-  background-color: #383f51;
+  color: #fcfcfc;
+  border: solid 5px #3f4b82;
+  background-color: #3f4b82;
   border-radius: 25%;
 }
 @media only screen and (min-width: 992px) {
