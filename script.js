@@ -206,18 +206,24 @@ $(function() {
     });
   }
 
-  function highlightNumber(number) {
+  function highlightSameCells() {
+    var selectedCells = getSelectedCells();
     sudokuCells.each(function() {
       $(this).removeClass("highlight-same");
     });
-    if (getSelectedCells().length > 1) {
+    if (selectedCells.length > 1) {
       return
+    } else {
+      var sudokuCell = $(selectedCells[0]);
     }
-    $.each(sudokuCells.find("span.centered"), function() {
-      if ($(this).text() === number) {
-        $(this).parent().addClass("highlight-same");
-      }
-    });
+    if (sudokuCell.find("span.centered")) {
+      var number = sudokuCell.find("span.centered").text();
+      $.each(sudokuCells.find("span.centered"), function() {
+        if ($(this).text() === number) {
+          $(this).parent().addClass("highlight-same");
+        }
+      });
+    }
   }
 
   function moveSelected(cell, direction) {
@@ -257,9 +263,7 @@ $(function() {
     }
     var newCellIndex = row * 9 + col;
     $(sudokuCells[newCellIndex]).addClass("highlight");
-    if ($(sudokuCells[newCellIndex]).find("span.centered")) {
-      highlightNumber($(sudokuCells[newCellIndex]).find("span.centered").text());
-    }
+    highlightSameCells()
   }
 
   // Mouse/Touch Events
@@ -273,6 +277,7 @@ $(function() {
     }
     sudokuCell.addClass("highlight");
     isHighlighting = true;
+    highlightSameCells
   });
 
   sudokuCells.on('mouseover', function (event) {
@@ -280,9 +285,6 @@ $(function() {
     var sudokuCell = $(this);
     if (isHighlighting) {
       sudokuCell.addClass("highlight");
-      if (sudokuCell.find("span.centered")) {
-        highlightNumber(sudokuCell.find("span.centered").text());
-      }
     }
   });
 
@@ -295,9 +297,7 @@ $(function() {
       );
     if (isHighlighting) {
       $(sudokuCell).addClass("highlight");
-      if ($(sudokuCell).find("span.centered")) {
-        highlightNumber($(sudokuCell).find("span.centered").text());
-      }
+      highlightSameCells()
     }
   })
 
@@ -305,12 +305,7 @@ $(function() {
     if (isHighlighting) {
       isHighlighting = false
     }
-    if (getSelectedCells().length === 1) {
-      var sudokuCell = $(getSelectedCells()[0])
-      if (sudokuCell.find("span.centered")) {
-        highlightNumber(sudokuCell.find("span.centered").text());
-      }
-    }
+    highlightSameCells()
   });
 
   // Keyboard Controls

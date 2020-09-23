@@ -22,7 +22,7 @@
   }
 }
 body {
-  background-color: #fcfcfc;
+  background-color: #f6f6f6;
   font-family: Source Sans Pro, sans-serif;
 }
 body #sudoku-container {
@@ -45,7 +45,7 @@ body #sudoku-container .sudoku-row.sudoku-row--bottom:last-child .sudoku-cell {
   border-bottom-width: 4px;
 }
 body #sudoku-container .sudoku-row .sudoku-cell {
-  border: #3f4b82 1px solid;
+  border: #325a84 1px solid;
   padding: 2px;
   width: 11.1111111111% !important;
   cursor: pointer;
@@ -54,10 +54,16 @@ body #sudoku-container .sudoku-row .sudoku-cell {
   justify-content: center;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.highlight {
-  background-color: #858eaf !important;
+  background-color: #4877a5 !important;
+}
+body #sudoku-container .sudoku-row .sudoku-cell.highlight span {
+  color: #f6f6f6 !important;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.highlight-same {
-  background-color: #a9b0c6;
+  background-color: #5386b6;
+}
+body #sudoku-container .sudoku-row .sudoku-cell.highlight-same span {
+  color: #f6f6f6 !important;
 }
 body #sudoku-container .sudoku-row .sudoku-cell.sudoku-cell--start {
   border-left-width: 4px;
@@ -70,14 +76,14 @@ body #sudoku-container span.centered {
   margin: auto;
   justify-content: center;
   -ms-flex-pack: center !important;
-  color: #626c98;
+  color: #3d6894;
 }
 body #sudoku-container span.centered.default {
-  color: #3f4b82;
+  color: #325a84;
 }
 body #sudoku-container span.pencil {
   font-size: 16px;
-  color: #626c98;
+  color: #3d6894;
 }
 body #sudoku-container span.pencil.pencil--top {
   top: 5%;
@@ -144,8 +150,8 @@ body #sudoku-controls input[type=checkbox] {
   display: none;
 }
 body #sudoku-controls input[type=checkbox]:checked + label > i, body #sudoku-controls input[type=checkbox]:checked + label > span {
-  color: #3f4b82;
-  background-color: #fcfcfc;
+  color: #325a84;
+  background-color: #f6f6f6;
 }
 body #sudoku-controls label,
 body #sudoku-controls button {
@@ -173,9 +179,9 @@ body #sudoku-controls button span {
   width: 72px;
   height: 72px;
   font-size: 48px;
-  color: #fcfcfc;
-  border: solid 5px #3f4b82;
-  background-color: #3f4b82;
+  color: #f6f6f6;
+  border: solid 5px #325a84;
+  background-color: #325a84;
   border-radius: 25%;
 }
 @media only screen and (min-width: 992px) {

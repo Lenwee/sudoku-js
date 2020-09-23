@@ -1,8 +1,10 @@
-$background: #fcfcfc;
-$highlight: #858eaf;
-$highlight_alt: #a9b0c6;
-$text: #3f4b82;
-$user_text: #626c98;
+$background: #f6f6f6;
+
+$highlight: #4877a5;
+$highlight_light: #5386b6;
+
+$user_text: #3d6894;
+$text: #325a84;
 
 @media only screen and (max-width: 992px) {
   .container {
@@ -73,10 +75,16 @@ body {
 
         &.highlight {
           background-color: $highlight !important;
+          span {
+            color: $background !important;
+          }
         }
 
         &.highlight-same {
-          background-color: $highlight_alt;
+          background-color: $highlight_light;
+          span {
+            color: $background !important;
+          }
         }
 
         &.sudoku-cell--start {
